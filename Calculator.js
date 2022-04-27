@@ -1,13 +1,15 @@
 const body = document.getRootNode();
-let display = "";
+//let display = "";
 
 function makeCalculator()
 {
     const calculator = document.createElement("div");
     calculator.style.display = "flex";
     calculator.style.flexDirection = "column";
-    calculator.textContent = display;
-
+    const display = document.createElement("div");
+    display.textContent = "testing";
+    display.id = "display";
+    
     body.appendChild(calculator);
 
     const buttons = document.createElement("div");
@@ -17,6 +19,14 @@ function makeCalculator()
 
     const numbersColumn1 = document.createElement("div");
     const one = document.createElement("button");
+    one.textContent = "1";
+    const two = document.createElement("button");
+    two.textContent = "2";
+
+
+
+
+
 
 }
 
@@ -44,6 +54,12 @@ function divide(a, b)
 }
 
 
+
+
+
+
+
+makeCalculator();
 /*
 Your calculator is going to contain functions for all of the basic math operators you typically find on simple calculators, so start by creating functions for the following items and testing them in your browser’s console.
 add
