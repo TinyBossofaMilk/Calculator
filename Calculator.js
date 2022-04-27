@@ -1,4 +1,4 @@
-const body = document.getRootNode();
+const body = document.querySelector("body");
 //let display = "";
 
 function makeCalculator()
@@ -6,22 +6,41 @@ function makeCalculator()
     const calculator = document.createElement("div");
     calculator.style.display = "flex";
     calculator.style.flexDirection = "column";
+    body.appendChild(calculator);
+    
     const display = document.createElement("div");
     display.textContent = "testing";
     display.id = "display";
+    calculator.appendChild(display);
     
-    body.appendChild(calculator);
-
     const buttons = document.createElement("div");
     buttons.style.display = "flex";
-
     calculator.appendChild(buttons);
 
     const numbersColumn1 = document.createElement("div");
+    const zero = document.createElement("button");
+    zero.textContent = "0";
+
     const one = document.createElement("button");
     one.textContent = "1";
+    
     const two = document.createElement("button");
     two.textContent = "2";
+
+    const three = document.createElement("button");
+    three.textContent = "3";
+    const four = document.createElement("button");
+    four.textContent = "4";
+    const five = document.createElement("button");
+    five.textContent = "5";
+    const six = document.createElement("button");
+    six.textContent = "6";
+    const seven = document.createElement("button");
+    seven.textContent = "7";
+    const eight = document.createElement("button");
+    eight.textContent = "8";
+    const nine = document.createElement("button");
+    nine.textContent = "9";
 
 
 
@@ -32,6 +51,20 @@ function makeCalculator()
 
 function operate(operator, a, b)
 {
+    switch(operator)
+    {
+        case "+" : add(a,b);
+                    break;
+                    
+        case "-" : subtract(a,b);
+                    break;
+
+        case "*": multiply(a,b);
+                    break;
+
+        case "/": divide(a,b);
+                    break;
+    }
 
 }
 
@@ -42,14 +75,15 @@ function subtract(a, b)
 {return a - b;}
 
 function multiply(a, b)
-{return a*b;}
+{return a * b;}
 
 function divide(a, b)
 {
     if(b != 0)
-        return a/b;
+        return a / b;
     
-    alert("Cannot divide by 0");
+    alert("Cannot divide by 0.");
+    alert("idiot");
         return Infinity;
 }
 
@@ -60,6 +94,7 @@ function divide(a, b)
 
 
 makeCalculator();
+
 /*
 Your calculator is going to contain functions for all of the basic math operators you typically find on simple calculators, so start by creating functions for the following items and testing them in your browser’s console.
 add
@@ -70,6 +105,13 @@ Create a new function operate that takes an operator and 2 numbers and then call
 
 
 Create a basic HTML calculator with buttons for each digit, each of the above functions and an “Equals” key.
+
+AC +- % /
+7 8 9 *
+4 5 6 -
+1 2 3 +
+0 0 . =
+
 
 Do not worry about wiring up the JS just yet.
 There should also be a display for the calculator, go ahead and fill it with some dummy numbers so you can get it looking right.
