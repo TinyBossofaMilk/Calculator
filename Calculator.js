@@ -21,6 +21,14 @@ function makeCalculator()
     const numbersRow2 = document.createElement("div");
     const numbersRow3 = document.createElement("div");
 
+    const numbersElementsArr = [];
+    for(let i = 0; i < 10; i++)
+    {
+        numbersElementsArr[i] = document.createElement("button");
+        numbersElementsArr[i].id = "integer";
+        numbersElementsArr[i].textContent = "0";
+    }
+    /*
     const zero = document.createElement("button");
     zero.id = "integer";
     zero.textContent = "0";
@@ -60,8 +68,7 @@ function makeCalculator()
     const nine = document.createElement("button");
     nine.id = "integer";
     nine.textContent = "9";
-
-
+*/
     numbersRow3.appendChild(seven);
     numbersRow3.appendChild(eight);
     numbersRow3.appendChild(nine);
@@ -70,12 +77,46 @@ function makeCalculator()
     numbersRow2.appendChild(five);
     numbersRow2.appendChild(six);
 
-    numbersRow3.appendChild(one);
-    numbersRow3.appendChild(two);
-    numbersRow3.appendChild(three);
+    numbersRow1.appendChild(one);
+    numbersRow1.appendChild(two);
+    numbersRow1.appendChild(three);
     
 
 
+
+
+    const operatorsColumn = document.createElement("div");
+    buttons.appendChild(operatorsColumn);
+
+    const operatorsArr = [];
+    for(let i = 0; i < 5; i++)
+    {
+        operatorsArr[i] = document.createElement("button");
+        operatorsArr[i].id = "op";
+    }
+    operatorsArr[0].textContent = "=";
+    operatorsArr[1].textContent = "+";
+    operatorsArr[2].textContent = "-";
+    operatorsArr[3].textContent = "*";
+    operatorsArr[4].textContent = "/";
+
+    /*
+    const add = document.createElement("button");
+    add.id = "op";
+    add.textContent = "+";
+    
+    const sub = document.createElement("button");
+    sub.id = "op";
+    sub.textContent = "-";
+    
+    const mul = document.createElement("button");
+    mul.id = "op";
+    mul.textContent = "*";
+    
+    const div = document.createElement("button");
+    div.id = "op";
+    div.textContent = "/";
+    */
 }
 
 function operate(operator, a, b)
