@@ -1,21 +1,26 @@
 const body = document.getRootNode();
-let display;
+let display = "";
 
 function makeCalculator()
 {
     const calculator = document.createElement("div");
     calculator.style.display = "flex";
     calculator.style.flexDirection = "column";
+    calculator.textContent = display;
 
     body.appendChild(calculator);
 
     const buttons = document.createElement("div");
     buttons.style.display = "flex";
-    
+
+    calculator.appendChild(buttons);
+
+    const numbersColumn1 = document.createElement("div");
+    const one = document.createElement("button");
 
 }
 
-function operate (a, b)
+function operate(operator, a, b)
 {
 
 }
