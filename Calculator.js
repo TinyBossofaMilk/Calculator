@@ -68,7 +68,7 @@ function makeCalculator()
     const nine = document.createElement("button");
     nine.id = "integer";
     nine.textContent = "9";
-*/
+
     numbersRow3.appendChild(seven);
     numbersRow3.appendChild(eight);
     numbersRow3.appendChild(nine);
@@ -80,7 +80,7 @@ function makeCalculator()
     numbersRow1.appendChild(one);
     numbersRow1.appendChild(two);
     numbersRow1.appendChild(three);
-    
+    */
 
 
 
