@@ -3,18 +3,40 @@ let display;
 
 function makeCalculator()
 {
-    body.appendChild();
-
     const calculator = document.createElement("div");
-}
+    calculator.style.display = "flex";
+    calculator.style.flexDirection = "column";
 
+    body.appendChild(calculator);
+
+    const buttons = document.createElement("div");
+    buttons.style.display = "flex";
+    
+
+}
 
 function operate (a, b)
 {
 
 }
 
+function add(a, b)
+{return a+b;}
 
+function subtract(a, b)
+{return a - b;}
+
+function multiply(a, b)
+{return a*b;}
+
+function divide(a, b)
+{
+    if(b != 0)
+        return a/b;
+    
+    alert("Cannot divide by 0");
+        return Infinity;
+}
 
 
 /*
