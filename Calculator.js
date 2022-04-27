@@ -17,34 +17,63 @@ function makeCalculator()
     buttons.style.display = "flex";
     calculator.appendChild(buttons);
 
-    const numbersColumn1 = document.createElement("div");
+    const numbersRow1 = document.createElement("div");
+    const numbersRow2 = document.createElement("div");
+    const numbersRow3 = document.createElement("div");
+
     const zero = document.createElement("button");
+    zero.id = "integer";
     zero.textContent = "0";
 
     const one = document.createElement("button");
+    one.id = "integer";
     one.textContent = "1";
     
     const two = document.createElement("button");
+    two.id = "integer";
     two.textContent = "2";
 
     const three = document.createElement("button");
+    three.id = "integer";
     three.textContent = "3";
+
     const four = document.createElement("button");
+    four.id = "integer";
     four.textContent = "4";
+
     const five = document.createElement("button");
+    five.id = "integer";
     five.textContent = "5";
+
     const six = document.createElement("button");
+    six.id = "integer";
     six.textContent = "6";
+
     const seven = document.createElement("button");
+    seven.id = "integer";
     seven.textContent = "7";
+
     const eight = document.createElement("button");
+    eight.id = "integer";
     eight.textContent = "8";
+
     const nine = document.createElement("button");
+    nine.id = "integer";
     nine.textContent = "9";
 
 
+    numbersRow3.appendChild(seven);
+    numbersRow3.appendChild(eight);
+    numbersRow3.appendChild(nine);
+    
+    numbersRow2.appendChild(four);
+    numbersRow2.appendChild(five);
+    numbersRow2.appendChild(six);
 
-
+    numbersRow3.appendChild(one);
+    numbersRow3.appendChild(two);
+    numbersRow3.appendChild(three);
+    
 
 
 }
