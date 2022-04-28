@@ -1,15 +1,19 @@
 const body = document.querySelector("body");
 //let display = "";
 
+const buttonMarginPx = 3;
+const buttonPaddingPx =  10;
+
 function makeCalculator()
 {
     const calculator = document.createElement("div");
     calculator.style.display = "flex-column";
+    //calculator.style.justifyContent = "center";
     //calculator.style.flexDirection = "column";
     body.appendChild(calculator);
     
     const display = document.createElement("div");
-    display.textContent = "testing";
+    display.textContent = 0;
     display.id = "display";
     calculator.appendChild(display);
     
@@ -44,6 +48,28 @@ function makeCalculator()
     miscbuttons[3].textContent = ".";
     miscbuttons[4].textContent = "<=";
 
+    miscbuttons[0].addEventListener("click", ( () => {
+        const displayText = document.getElementById("display");
+        displayText.textContent = 0;
+    }));
+    miscbuttons[1].addEventListener("click", ( () => {
+        const displayText = document.getElementById("display");
+        displayText.textContent *= -1;
+    }));
+    miscbuttons[2].addEventListener("click", ( () => {
+        const displayText = document.getElementById("display");
+        displayText.textContent *= -1;
+    }));
+    miscbuttons[3].addEventListener("click", ( () => {
+        const displayText = document.getElementById("display");
+        displayText.textContent *= -1;
+    }));
+    miscbuttons[4].addEventListener("click", ( () => {
+        const displayText = document.getElementById("display");
+        displayText.textContent /= 10;
+    }));
+
+
     /*********************************************************************** NUMBERS */
 
     const numbersRow0 = document.createElement("div");
@@ -62,6 +88,10 @@ function makeCalculator()
         numbersElementsArr[i] = document.createElement("button");
         numbersElementsArr[i].id = "integer";
         numbersElementsArr[i].textContent = i;
+        numbersElementsArr[i].addEventListener("click", ( () => {
+            const displayText = document.getElementById("display");
+            displayText.textContent = displayText.textContent * 10 + i;
+        }));
     }
 
     for(let i = 7; i < 10 ; i++)
@@ -86,6 +116,15 @@ function makeCalculator()
     {
         operatorsArr[i] = document.createElement("button");
         operatorsArr[i].id = "op";
+        operatorsArr[i].style.backgroundColor = "orange";
+        operatorsArr[i].style.margin = buttonMarginPx + "px";
+        operatorsArr[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
+
+        operatorsArr.addEventListener("click", ( () => {
+            const displayText = document.getElementById("display");
+            // incomplete!!!!!
+        }));
+
         operatorsColumn.appendChild(operatorsArr[i]);
     }
 
@@ -98,7 +137,6 @@ function makeCalculator()
 
 function operate(operator, a, b)
 {
-
     switch(operator)
     {
         case "+" : add(a,b);
@@ -113,6 +151,11 @@ function operate(operator, a, b)
         case "/": divide(a,b);
                     break;
     }
+
+}
+
+function keyboardSupport()
+{
 
 }
 
