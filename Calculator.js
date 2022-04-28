@@ -4,8 +4,8 @@ const body = document.querySelector("body");
 function makeCalculator()
 {
     const calculator = document.createElement("div");
-    calculator.style.display = "flex";
-    calculator.style.flexDirection = "column";
+    calculator.style.display = "flex-column";
+    //calculator.style.flexDirection = "column";
     body.appendChild(calculator);
     
     const display = document.createElement("div");
@@ -17,17 +17,43 @@ function makeCalculator()
     buttons.style.display = "flex";
     calculator.appendChild(buttons);
 
+    const inputbuttons = document.createElement("div");
+    inputbuttons.style.display = "flex-column";
+    buttons.appendChild(inputbuttons);
+    
+    const miscFunctions = document.createElement("div");
+    miscFunctions.style.display = "flex-column";
+    inputbuttons.appendChild(miscFunctions);
+
+
+
+
+    const numbersRow0 = document.createElement("div");
     const numbersRow1 = document.createElement("div");
     const numbersRow2 = document.createElement("div");
     const numbersRow3 = document.createElement("div");
+
+    inputbuttons.appendChild(numbersRow3);
+    inputbuttons.appendChild(numbersRow2);
+    inputbuttons.appendChild(numbersRow1);
+    inputbuttons.appendChild(numbersRow0);
 
     const numbersElementsArr = [];
     for(let i = 0; i < 10; i++)
     {
         numbersElementsArr[i] = document.createElement("button");
         numbersElementsArr[i].id = "integer";
-        numbersElementsArr[i].textContent = "0";
+        numbersElementsArr[i].textContent = i;
     }
+
+    for(let i = 7; i < 10 ; i++)
+    {numbersRow3.appendChild(numbersElementsArr[i]);}
+    for(let i = 4; i < 7 ; i++)
+    {numbersRow2.appendChild(numbersElementsArr[i]);}
+    for(let i = 1; i < 4 ; i++)
+    {numbersRow1.appendChild(numbersElementsArr[i]);}
+    numbersRow0.appendChild(numbersElementsArr[0]);
+
     /*
     const zero = document.createElement("button");
     zero.id = "integer";
@@ -86,6 +112,8 @@ function makeCalculator()
 
 
     const operatorsColumn = document.createElement("div");
+    operatorsColumn.style.display = "flex";
+    operatorsColumn.style.flexDirection = "column"
     buttons.appendChild(operatorsColumn);
 
     const operatorsArr = [];
@@ -93,12 +121,17 @@ function makeCalculator()
     {
         operatorsArr[i] = document.createElement("button");
         operatorsArr[i].id = "op";
+        operatorsColumn.appendChild(operatorsArr[i]);
     }
-    operatorsArr[0].textContent = "=";
-    operatorsArr[1].textContent = "+";
+
+    operatorsArr[0].textContent = "/";
+    operatorsArr[1].textContent = "*";
     operatorsArr[2].textContent = "-";
-    operatorsArr[3].textContent = "*";
-    operatorsArr[4].textContent = "/";
+    operatorsArr[3].textContent = "+";
+    operatorsArr[4].textContent = "=";
+
+    //operatorsArr.forEach((e) => operatorsColumn.appendChild(e));
+
 
     /*
     const add = document.createElement("button");
@@ -121,6 +154,7 @@ function makeCalculator()
 
 function operate(operator, a, b)
 {
+
     switch(operator)
     {
         case "+" : add(a,b);
