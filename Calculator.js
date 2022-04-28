@@ -21,12 +21,30 @@ function makeCalculator()
     inputbuttons.style.display = "flex-column";
     buttons.appendChild(inputbuttons);
     
+    /*********************************************************************** MISC BUTTONS */
+
     const miscFunctions = document.createElement("div");
     miscFunctions.style.display = "flex-column";
     inputbuttons.appendChild(miscFunctions);
 
+    const miscbuttons = [];
+    for(let i = 0; i < 3; i++)
+    {
+        miscbuttons[i] = document.createElement("button");
+        miscbuttons[i].id = "misc";        
+        miscFunctions.appendChild(miscbuttons[i]);
+    }
 
+    for(let i = 3; i < 5; i++)
+    {miscbuttons[i] = document.createElement("button");}
 
+    miscbuttons[0].textContent = "A/C";
+    miscbuttons[1].textContent = "+/-";
+    miscbuttons[2].textContent = "%";
+    miscbuttons[3].textContent = ".";
+    miscbuttons[4].textContent = "<=";
+
+    /*********************************************************************** NUMBERS */
 
     const numbersRow0 = document.createElement("div");
     const numbersRow1 = document.createElement("div");
@@ -53,63 +71,10 @@ function makeCalculator()
     for(let i = 1; i < 4 ; i++)
     {numbersRow1.appendChild(numbersElementsArr[i]);}
     numbersRow0.appendChild(numbersElementsArr[0]);
-
-    /*
-    const zero = document.createElement("button");
-    zero.id = "integer";
-    zero.textContent = "0";
-
-    const one = document.createElement("button");
-    one.id = "integer";
-    one.textContent = "1";
-    
-    const two = document.createElement("button");
-    two.id = "integer";
-    two.textContent = "2";
-
-    const three = document.createElement("button");
-    three.id = "integer";
-    three.textContent = "3";
-
-    const four = document.createElement("button");
-    four.id = "integer";
-    four.textContent = "4";
-
-    const five = document.createElement("button");
-    five.id = "integer";
-    five.textContent = "5";
-
-    const six = document.createElement("button");
-    six.id = "integer";
-    six.textContent = "6";
-
-    const seven = document.createElement("button");
-    seven.id = "integer";
-    seven.textContent = "7";
-
-    const eight = document.createElement("button");
-    eight.id = "integer";
-    eight.textContent = "8";
-
-    const nine = document.createElement("button");
-    nine.id = "integer";
-    nine.textContent = "9";
-
-    numbersRow3.appendChild(seven);
-    numbersRow3.appendChild(eight);
-    numbersRow3.appendChild(nine);
-    
-    numbersRow2.appendChild(four);
-    numbersRow2.appendChild(five);
-    numbersRow2.appendChild(six);
-
-    numbersRow1.appendChild(one);
-    numbersRow1.appendChild(two);
-    numbersRow1.appendChild(three);
-    */
+    numbersRow0.appendChild(miscbuttons[3]);
 
 
-
+    /*********************************************************************** OPERATORS */
 
     const operatorsColumn = document.createElement("div");
     operatorsColumn.style.display = "flex";
@@ -129,27 +94,6 @@ function makeCalculator()
     operatorsArr[2].textContent = "-";
     operatorsArr[3].textContent = "+";
     operatorsArr[4].textContent = "=";
-
-    //operatorsArr.forEach((e) => operatorsColumn.appendChild(e));
-
-
-    /*
-    const add = document.createElement("button");
-    add.id = "op";
-    add.textContent = "+";
-    
-    const sub = document.createElement("button");
-    sub.id = "op";
-    sub.textContent = "-";
-    
-    const mul = document.createElement("button");
-    mul.id = "op";
-    mul.textContent = "*";
-    
-    const div = document.createElement("button");
-    div.id = "op";
-    div.textContent = "/";
-    */
 }
 
 function operate(operator, a, b)
@@ -200,11 +144,14 @@ function divide(a, b)
 makeCalculator();
 
 /*
-Your calculator is going to contain functions for all of the basic math operators you typically find on simple calculators, so start by creating functions for the following items and testing them in your browser’s console.
+Your calculator is going to contain functions for all of the basic math operators you typically find on simple calculators, 
+so start by creating functions for the following items and testing them in your browser’s console.
+
 add
 subtract
 multiply
 divide
+
 Create a new function operate that takes an operator and 2 numbers and then calls one of the above functions on the numbers.
 
 
@@ -224,6 +171,7 @@ Create the functions that populate the display when you click the number buttons
 Make the calculator work! You’ll need to store the first number that is input into the calculator when a user presses an operator, and also save which operation has been chosen and then operate() on them when the user presses the “=” key.
 You should already have the code that can populate the display, so once operate() has been called, update the display with the ‘solution’ to the operation.
 This is the hardest part of the project. You need to figure out how to store all the values and call the operate function with them. Don’t feel bad if it takes you a while to figure out the logic.
+
 Gotchas: watch out for and fix these bugs if they show up in your code:
 Users should be able to string together several operations and get the right answer, with each pair of numbers being evaluated at a time. For example, 12 + 7 - 5 * 3 = should yield 42. An example of the behavior we’re looking for would be this student solution.
 Your calculator should not evaluate more than a single pair of numbers at a time. Example: you press a number button (12), followed by an operator button (+), a second number button (7), and finally a second operator button (-). Your calculator should then do the following: first, evaluate the first pair of numbers (12 + 7), second, display the result of that calculation (19), and finally, use that result (19) as the first number in your new calculation, along with the next operator (-).
