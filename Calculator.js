@@ -1,6 +1,7 @@
 const body = document.querySelector("body");
 let storedValue;
 let storedOperator;
+let decimalPoint;
 //let display = "";
 
 const buttonMarginPx = 10;
@@ -158,20 +159,31 @@ function makeCalculator()
 
 function operate(operator, a, b)
 {
-
-    switch(operator)
+    if(typeof storedValue == "undefined")
     {
-        case "+" : add(a,b);
-                    break;
-                    
-        case "-" : subtract(a,b);
-                    break;
+        const display = document.getElementById("display")
+        storedValue = display.displayText;
+        display.displayText = 0;
 
-        case "*": multiply(a,b);
-                    break;
+    }
 
-        case "/": divide(a,b);
-                    break;
+    else
+    {
+
+        switch(operator)
+        {
+            case "+" : add(a,b);
+            break;
+            
+            case "-" : subtract(a,b);
+            break;
+            
+            case "*": multiply(a,b);
+            break;
+            
+            case "/": divide(a,b);
+            break;
+        }
     }
 
 }
