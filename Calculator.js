@@ -1,15 +1,20 @@
 const body = document.querySelector("body");
+let storedValue;
+let storedOperator;
 //let display = "";
 
-const buttonMarginPx = 3;
-const buttonPaddingPx =  10;
+const buttonMarginPx = 10;
+const buttonPaddingPx = 50;
 
 function makeCalculator()
 {
     body.style.display = "flex";
+    body.style.justifyContent = "center";
+    //body.style.alignItems = "space-around"
+    
     
     const calculator = document.createElement("div");
-    calculator.style.display = "flex-column";
+    calculator.style.display = "flex-column"; 
     //calculator.style.justifyContent = "center";
     //calculator.style.flexDirection = "column";
     body.appendChild(calculator);
@@ -17,6 +22,13 @@ function makeCalculator()
     const display = document.createElement("div");
     display.textContent = 0;
     display.id = "display";
+    display.style.backgroundColor = "grey";
+    display.style.margin = buttonMarginPx + "px";
+    display.style.padding = `10px`;
+    display.style.fontFamily = "";
+    // display.style.fontWeight = "bold";
+    
+    display.style.fontSize = "50px";
     calculator.appendChild(display);
     
     const buttons = document.createElement("div");
@@ -38,6 +50,9 @@ function makeCalculator()
     {
         miscbuttons[i] = document.createElement("button");
         miscbuttons[i].id = "misc";        
+        miscbuttons[i].style.backgroundColor = "pink";
+        miscbuttons[i].style.margin = buttonMarginPx + "px";
+        miscbuttons[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
         miscFunctions.appendChild(miscbuttons[i]);
     }
 
@@ -91,6 +106,9 @@ function makeCalculator()
         numbersElementsArr[i] = document.createElement("button");
         numbersElementsArr[i].id = "integer";
         numbersElementsArr[i].textContent = i;
+        numbersElementsArr[i].style.backgroundColor = "cyan";
+        numbersElementsArr[i].style.margin = buttonMarginPx + "px";
+        numbersElementsArr[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
         numbersElementsArr[i].addEventListener("click", ( () => {
             const displayText = document.getElementById("display");
             displayText.textContent = (displayText.textContent >= 0) ? displayText.textContent * 10 + i : displayText.textContent * 10 - i;
@@ -140,6 +158,7 @@ function makeCalculator()
 
 function operate(operator, a, b)
 {
+
     switch(operator)
     {
         case "+" : add(a,b);
