@@ -6,6 +6,8 @@ const buttonPaddingPx =  10;
 
 function makeCalculator()
 {
+    body.style.display = "flex";
+    
     const calculator = document.createElement("div");
     calculator.style.display = "flex-column";
     //calculator.style.justifyContent = "center";
@@ -32,21 +34,21 @@ function makeCalculator()
     inputbuttons.appendChild(miscFunctions);
 
     const miscbuttons = [];
-    for(let i = 0; i < 3; i++)
+    for(let i = 0; i < 4; i++)
     {
         miscbuttons[i] = document.createElement("button");
         miscbuttons[i].id = "misc";        
         miscFunctions.appendChild(miscbuttons[i]);
     }
 
-    for(let i = 3; i < 5; i++)
+    for(let i = 4; i < 5; i++)
     {miscbuttons[i] = document.createElement("button");}
 
     miscbuttons[0].textContent = "A/C";
     miscbuttons[1].textContent = "+/-";
     miscbuttons[2].textContent = "%";
-    miscbuttons[3].textContent = ".";
-    miscbuttons[4].textContent = "<=";
+    miscbuttons[3].textContent = "<=";
+    miscbuttons[4].textContent = ".";
 
     miscbuttons[0].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
@@ -58,15 +60,16 @@ function makeCalculator()
     }));
     miscbuttons[2].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        displayText.textContent *= -1;
+        displayText.textContent /= 100;
     }));
     miscbuttons[3].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        displayText.textContent *= -1;
+        let lastDigit = displayText.textContent % 10;
+        displayText.textContent = (displayText.textContent - lastDigit) / 10;
     }));
     miscbuttons[4].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        displayText.textContent /= 10;
+        //TODO: FINISH FXN displayText.textContent *= -1;
     }));
 
 
@@ -90,7 +93,7 @@ function makeCalculator()
         numbersElementsArr[i].textContent = i;
         numbersElementsArr[i].addEventListener("click", ( () => {
             const displayText = document.getElementById("display");
-            displayText.textContent = displayText.textContent * 10 + i;
+            displayText.textContent = (displayText.textContent >= 0) ? displayText.textContent * 10 + i : displayText.textContent * 10 - i;
         }));
     }
 
@@ -101,7 +104,7 @@ function makeCalculator()
     for(let i = 1; i < 4 ; i++)
     {numbersRow1.appendChild(numbersElementsArr[i]);}
     numbersRow0.appendChild(numbersElementsArr[0]);
-    numbersRow0.appendChild(miscbuttons[3]);
+    numbersRow0.appendChild(miscbuttons[4]);
 
 
     /*********************************************************************** OPERATORS */
@@ -120,9 +123,9 @@ function makeCalculator()
         operatorsArr[i].style.margin = buttonMarginPx + "px";
         operatorsArr[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
 
-        operatorsArr.addEventListener("click", ( () => {
+        operatorsArr[i].addEventListener("click", ( () => {
             const displayText = document.getElementById("display");
-            // incomplete!!!!!
+            displayText.textContent = "this function is working";
         }));
 
         operatorsColumn.appendChild(operatorsArr[i]);
@@ -154,13 +157,14 @@ function operate(operator, a, b)
 
 }
 
-function keyboardSupport()
+function addKeyboardSupport()
 {
+    // window.addEventListener("keydown", )
 
 }
 
 function add(a, b)
-{return a+b;}
+{return a + b;}
 
 function subtract(a, b)
 {return a - b;}
