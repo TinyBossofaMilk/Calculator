@@ -144,7 +144,7 @@ function makeCalculator()
 
         operatorsArr[i].addEventListener("click", ( () => {
             const displayText = document.getElementById("display");
-            displayText.textContent = "this function is working";
+            operate(operatorsArr[i].textContent, storedValue, displayText.textContent);
         }));
 
         operatorsColumn.appendChild(operatorsArr[i]);
@@ -159,33 +159,37 @@ function makeCalculator()
 
 function operate(operator, a, b)
 {
+    const display = document.getElementById("display");
+    
     if(typeof storedValue == "undefined")
     {
-        const display = document.getElementById("display")
         storedValue = display.displayText;
         display.displayText = 0;
-
+        storedOperator = operator;
     }
-
     else
     {
-
         switch(operator)
         {
-            case "+" : add(a,b);
-            break;
+            case "+" :  display.textContent = add(a,b);
+                        break;
             
-            case "-" : subtract(a,b);
-            break;
+            case "-" :  display.textContent = subtract(a,b);
+                        break;
             
-            case "*": multiply(a,b);
-            break;
+            case "*":   display.textContent = multiply(a,b);
+                        break;
             
-            case "/": divide(a,b);
-            break;
+            case "/":   display.textContent = divide(a,b);
+                        break;
+                        
+            case "/":   display.textContent = divide(a,b);
+                        break;
         }
-    }
 
+        storedValue = undefined;
+        storedOperator = undefined;
+    }
 }
 
 function addKeyboardSupport()
