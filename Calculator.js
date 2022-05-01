@@ -1,21 +1,14 @@
 const body = document.querySelector("body");
-let storedValue;
-let storedOperator;
-let decimalPoint;
 //let display = "";
 
-const buttonMarginPx = 10;
-const buttonPaddingPx = 50;
+let clearDisplay = false;
+const buttonMarginPx = 3;
+const buttonPaddingPx =  10;
 
 function makeCalculator()
 {
-    body.style.display = "flex";
-    body.style.justifyContent = "center";
-    //body.style.alignItems = "space-around"
-    
-    
     const calculator = document.createElement("div");
-    calculator.style.display = "flex-column"; 
+    calculator.style.display = "flex-column";
     //calculator.style.justifyContent = "center";
     //calculator.style.flexDirection = "column";
     body.appendChild(calculator);
@@ -23,13 +16,6 @@ function makeCalculator()
     const display = document.createElement("div");
     display.textContent = 0;
     display.id = "display";
-    display.style.backgroundColor = "grey";
-    display.style.margin = buttonMarginPx + "px";
-    display.style.padding = `10px`;
-    display.style.fontFamily = "";
-    // display.style.fontWeight = "bold";
-    
-    display.style.fontSize = "50px";
     calculator.appendChild(display);
     
     const buttons = document.createElement("div");
@@ -47,24 +33,21 @@ function makeCalculator()
     inputbuttons.appendChild(miscFunctions);
 
     const miscbuttons = [];
-    for(let i = 0; i < 4; i++)
+    for(let i = 0; i < 3; i++)
     {
         miscbuttons[i] = document.createElement("button");
         miscbuttons[i].id = "misc";        
-        miscbuttons[i].style.backgroundColor = "pink";
-        miscbuttons[i].style.margin = buttonMarginPx + "px";
-        miscbuttons[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
         miscFunctions.appendChild(miscbuttons[i]);
     }
 
-    for(let i = 4; i < 5; i++)
+    for(let i = 3; i < 5; i++)
     {miscbuttons[i] = document.createElement("button");}
 
     miscbuttons[0].textContent = "A/C";
     miscbuttons[1].textContent = "+/-";
     miscbuttons[2].textContent = "%";
-    miscbuttons[3].textContent = "<=";
-    miscbuttons[4].textContent = ".";
+    miscbuttons[3].textContent = ".";
+    miscbuttons[4].textContent = "<=";
 
     miscbuttons[0].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
@@ -76,16 +59,15 @@ function makeCalculator()
     }));
     miscbuttons[2].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        displayText.textContent /= 100;
+        displayText.textContent *= -1;
     }));
     miscbuttons[3].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        let lastDigit = displayText.textContent % 10;
-        displayText.textContent = (displayText.textContent - lastDigit) / 10;
+        displayText.textContent *= -1;
     }));
     miscbuttons[4].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        //TODO: FINISH FXN displayText.textContent *= -1;
+        displayText.textContent /= 10;
     }));
 
 
@@ -107,12 +89,9 @@ function makeCalculator()
         numbersElementsArr[i] = document.createElement("button");
         numbersElementsArr[i].id = "integer";
         numbersElementsArr[i].textContent = i;
-        numbersElementsArr[i].style.backgroundColor = "cyan";
-        numbersElementsArr[i].style.margin = buttonMarginPx + "px";
-        numbersElementsArr[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
         numbersElementsArr[i].addEventListener("click", ( () => {
             const displayText = document.getElementById("display");
-            displayText.textContent = (displayText.textContent >= 0) ? displayText.textContent * 10 + i : displayText.textContent * 10 - i;
+            displayText.textContent = displayText.textContent * 10 + i;
         }));
     }
 
@@ -123,7 +102,7 @@ function makeCalculator()
     for(let i = 1; i < 4 ; i++)
     {numbersRow1.appendChild(numbersElementsArr[i]);}
     numbersRow0.appendChild(numbersElementsArr[0]);
-    numbersRow0.appendChild(miscbuttons[4]);
+    numbersRow0.appendChild(miscbuttons[3]);
 
 
     /*********************************************************************** OPERATORS */
@@ -142,10 +121,10 @@ function makeCalculator()
         operatorsArr[i].style.margin = buttonMarginPx + "px";
         operatorsArr[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
 
-        operatorsArr[i].addEventListener("click", ( () => {
-            const displayText = document.getElementById("display");
-            operate(operatorsArr[i].textContent, storedValue, displayText.textContent);
-        }));
+        // operatorsArr.addEventListener("click", ( () => {
+        //     const displayText = document.getElementById("display");
+        //     // incomplete!!!!!
+        // }));
 
         operatorsColumn.appendChild(operatorsArr[i]);
     }
@@ -159,47 +138,30 @@ function makeCalculator()
 
 function operate(operator, a, b)
 {
-    const display = document.getElementById("display");
-    
-    if(typeof storedValue == "undefined")
+    switch(operator)
     {
-        storedValue = display.displayText;
-        display.displayText = 0;
-        storedOperator = operator;
-    }
-    else
-    {
-        switch(operator)
-        {
-            case "+" :  display.textContent = add(a,b);
-                        break;
-            
-            case "-" :  display.textContent = subtract(a,b);
-                        break;
-            
-            case "*":   display.textContent = multiply(a,b);
-                        break;
-            
-            case "/":   display.textContent = divide(a,b);
-                        break;
-                        
-            case "/":   display.textContent = divide(a,b);
-                        break;
-        }
+        case "+" : add(a,b);
+                    break;
+                    
+        case "-" : subtract(a,b);
+                    break;
 
-        storedValue = undefined;
-        storedOperator = undefined;
+        case "*": multiply(a,b);
+                    break;
+
+        case "/": divide(a,b);
+                    break;
     }
+
 }
 
-function addKeyboardSupport()
+function keyboardSupport()
 {
-    // window.addEventListener("keydown", )
 
 }
 
 function add(a, b)
-{return a + b;}
+{return a+b;}
 
 function subtract(a, b)
 {return a - b;}
