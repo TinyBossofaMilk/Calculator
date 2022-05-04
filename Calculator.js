@@ -41,6 +41,9 @@ most recent one, and does perform a calculation the display value based on.
         if op is false, run calculation, last op = true
 
     when integer is entered, lastEntrywasOp = false;
+
+
+TODO: remove all global variables.
 */
 
 const body = document.querySelector("body");
@@ -163,6 +166,8 @@ function makeCalculator()
         numbersElementsArr[i].addEventListener("click", ( () => {
             const displayText = document.getElementById("display");
             
+            lastEntrywasOp = false;
+
             if(clearDisplay)
             {
                 displayText.textContent = 0;
@@ -216,18 +221,14 @@ function makeCalculator()
 //operate(operatorsArr[i].textContent, storedValue, displayText.textContent);
 function operate(operator, a, b)
 {
-    /*
+    const display = document.getElementById("display");
+    
     if(lastEntrywasOp)
     {
         storedOperator = operator;
-        break;
+        return;
     }
-    */ //<--think about this more
-
-    const display = document.getElementById("display");
-    //alert(display.textContent);
-
-    if(typeof storedValue == "undefined")
+    else if (typeof storedValue == "undefined")
     {
         storedValue = display.textContent;
         storedOperator = operator;
@@ -249,15 +250,8 @@ function operate(operator, a, b)
             case "/":   display.textContent = divide(a,b);
                         break;
         }
-
-        if(operator == "=")
-        {
-            clearDisplay = false;
-        }
-        else
-        {
-            clearDisplay = true;
-        }
+    
+        clearDisplay = true;
         storedValue = display.textContent;
         storedOperator = operator;
     }
@@ -271,7 +265,7 @@ function addKeyboardSupport()
 }
 
 function add(a, b)
-{return Number(a) + Number(b);}
+{return +a + +b;}
 
 function subtract(a, b)
 {return a - b;}
