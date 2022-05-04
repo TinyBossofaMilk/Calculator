@@ -1,14 +1,64 @@
-const body = document.querySelector("body");
-//let display = "";
+/* TODO: INtegration of decimal point logics
+ //ce clears it, backspace clears it,, true when someone clicks the . operator.
+ //then you add floating point part. 
 
-let clearDisplay = false;
-const buttonMarginPx = 3;
-const buttonPaddingPx =  10;
+ limit how many decimal points you can add.
+ //when integer inputted, 
+    1) checks if decmial point is true
+    2) then adds to floating point part.
+
+
+
+    TODO: Add Operation functionatliy
+int input adds integers
+checks for decimal functionality TO BE IMPLEMENTED LATER
+checks for clear display
+    if so, sets display value = 0 and proceeds
+    cleardisplay = false
+
+when operator is chosen, checks if there's stored op/value
+    if there isn't, saves stored op/value, sets display to 0
+    saves display text, will be erased upon new integer input
+        save stored OP & Display in vars
+        clear Display upon new int
+
+    if there is, executes stored value, stored operator, and current operator. FOR ALL EXCEPT = op
+        dispaly text = calculated Operator value
+        stored value = display text;
+        stored OP = new inputed OP
+
+    if op is =, carry out saved values and operator, sequential op input
+    should not execute calculation using current display value. 
+
+TODO: add exception where if you put in multiple operators, it takes the
+most recent one, and does perform a calculation the display value based on.
+    after operation: lastEntrywasOP, 
+        if op is added, don't run calculation.
+        if op is false, run calculation, last op = true
+d
+    when integer is entered, lastEntrywasOp = false;
+*/
+
+const body = document.querySelector("body");
+let storedValue = undefined;
+let storedOperator = undefined;
+let decimalPoint;
+let floatingPointInts = 0;
+let clearDisplay;
+let lastEntrywasOp = false;
+
+const buttonMarginPx = 10;
+const buttonPaddingPx = 50;
 
 function makeCalculator()
 {
+    body.style.display = "flex";
+    body.style.justifyContent = "center";
+    //body.style.alignItems = "space-around"
+    
+    
     const calculator = document.createElement("div");
-    calculator.style.display = "flex-column";
+    calculator.style.display = "flex-column"; 
     //calculator.style.justifyContent = "center";
     //calculator.style.flexDirection = "column";
     body.appendChild(calculator);
@@ -16,6 +66,13 @@ function makeCalculator()
     const display = document.createElement("div");
     display.textContent = 0;
     display.id = "display";
+    display.style.backgroundColor = "grey";
+    display.style.margin = buttonMarginPx + "px";
+    display.style.padding = `10px`;
+    display.style.fontFamily = "";
+    // display.style.fontWeight = "bold";
+    
+    display.style.fontSize = "50px";
     calculator.appendChild(display);
     
     const buttons = document.createElement("div");
@@ -33,24 +90,29 @@ function makeCalculator()
     inputbuttons.appendChild(miscFunctions);
 
     const miscbuttons = [];
-    for(let i = 0; i < 3; i++)
+    for(let i = 0; i < 4; i++)
     {
         miscbuttons[i] = document.createElement("button");
         miscbuttons[i].id = "misc";        
+        miscbuttons[i].style.backgroundColor = "pink";
+        miscbuttons[i].style.margin = buttonMarginPx + "px";
+        miscbuttons[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
         miscFunctions.appendChild(miscbuttons[i]);
     }
 
-    for(let i = 3; i < 5; i++)
+    for(let i = 4; i < 5; i++)
     {miscbuttons[i] = document.createElement("button");}
 
     miscbuttons[0].textContent = "A/C";
     miscbuttons[1].textContent = "+/-";
     miscbuttons[2].textContent = "%";
-    miscbuttons[3].textContent = ".";
-    miscbuttons[4].textContent = "<=";
+    miscbuttons[3].textContent = "<=";
+    miscbuttons[4].textContent = ".";
 
     miscbuttons[0].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
+        storedValue = undefined;
+        storedOperator = undefined;
         displayText.textContent = 0;
     }));
     miscbuttons[1].addEventListener("click", ( () => {
@@ -59,15 +121,16 @@ function makeCalculator()
     }));
     miscbuttons[2].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        displayText.textContent *= -1;
+        displayText.textContent /= 100;
     }));
     miscbuttons[3].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        displayText.textContent *= -1;
+        let lastDigit = displayText.textContent % 10;
+        displayText.textContent = (displayText.textContent - lastDigit) / 10;
     }));
     miscbuttons[4].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        displayText.textContent /= 10;
+        //TODO: FINISH FXN displayText.textContent *= -1;
     }));
 
 
@@ -89,9 +152,20 @@ function makeCalculator()
         numbersElementsArr[i] = document.createElement("button");
         numbersElementsArr[i].id = "integer";
         numbersElementsArr[i].textContent = i;
+        numbersElementsArr[i].style.backgroundColor = "cyan";
+        numbersElementsArr[i].style.margin = buttonMarginPx + "px";
+        numbersElementsArr[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
+
         numbersElementsArr[i].addEventListener("click", ( () => {
             const displayText = document.getElementById("display");
-            displayText.textContent = displayText.textContent * 10 + i;
+            
+            if(clearDisplay)
+            {
+                displayText.textContent = 0;
+                clearDisplay = false;
+            }
+
+            displayText.textContent = (displayText.textContent >= 0) ? displayText.textContent * 10 + i : displayText.textContent * 10 - i;
         }));
     }
 
@@ -102,7 +176,7 @@ function makeCalculator()
     for(let i = 1; i < 4 ; i++)
     {numbersRow1.appendChild(numbersElementsArr[i]);}
     numbersRow0.appendChild(numbersElementsArr[0]);
-    numbersRow0.appendChild(miscbuttons[3]);
+    numbersRow0.appendChild(miscbuttons[4]);
 
 
     /*********************************************************************** OPERATORS */
@@ -121,10 +195,10 @@ function makeCalculator()
         operatorsArr[i].style.margin = buttonMarginPx + "px";
         operatorsArr[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
 
-        // operatorsArr.addEventListener("click", ( () => {
-        //     const displayText = document.getElementById("display");
-        //     // incomplete!!!!!
-        // }));
+        operatorsArr[i].addEventListener("click", ( () => {
+            const displayText = document.getElementById("display");
+            operate(operatorsArr[i].textContent, storedValue, displayText.textContent);
+        }));
 
         operatorsColumn.appendChild(operatorsArr[i]);
     }
@@ -135,33 +209,52 @@ function makeCalculator()
     operatorsArr[3].textContent = "+";
     operatorsArr[4].textContent = "=";
 }
-
+//operate(operatorsArr[i].textContent, storedValue, displayText.textContent);
 function operate(operator, a, b)
 {
-    switch(operator)
+    const display = document.getElementById("display");
+    //alert(display.textContent);
+
+    if(typeof storedValue == "undefined")
     {
-        case "+" : add(a,b);
-                    break;
-                    
-        case "-" : subtract(a,b);
-                    break;
-
-        case "*": multiply(a,b);
-                    break;
-
-        case "/": divide(a,b);
-                    break;
+        storedValue = display.textContent;
+        storedOperator = operator;
+        clearDisplay = true;
     }
+    else
+    {
+        switch(storedOperator)
+        {
+            case "+" :  display.textContent = add(a,b);
+                        break;
+            
+            case "-" :  display.textContent = subtract(a,b);
+                        break;
+            
+            case "*":   display.textContent = multiply(a,b);
+                        break;
+            
+            case "/":   display.textContent = divide(a,b);
+                        break;
+                        
+            case "=":   //operate(undefined, )
+                        break;
+        }
 
+        storedValue = display.textContent;
+        storedOperator = operator;
+        clearDisplay = true;
+    }
 }
 
-function keyboardSupport()
+function addKeyboardSupport()
 {
+    // window.addEventListener("keydown", )
 
 }
 
 function add(a, b)
-{return a+b;}
+{return a + b;}
 
 function subtract(a, b)
 {return a - b;}
