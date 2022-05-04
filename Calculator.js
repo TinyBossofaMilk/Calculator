@@ -27,7 +27,11 @@ when operator is chosen, checks if there's stored op/value
         stored value = display text;
         stored OP = new inputed OP
 
-    if op is =, carry out saved values and operator, sequential op input
+    if op is =, carry out saved values and operator
+    if seq. input is op, carry out using display.
+    if seq. input is int, clear everything.
+
+    sequential op input
     should not execute calculation using current display value. 
 
 TODO: add exception where if you put in multiple operators, it takes the
@@ -35,7 +39,7 @@ most recent one, and does perform a calculation the display value based on.
     after operation: lastEntrywasOP, 
         if op is added, don't run calculation.
         if op is false, run calculation, last op = true
-d
+
     when integer is entered, lastEntrywasOp = false;
 */
 
@@ -212,6 +216,14 @@ function makeCalculator()
 //operate(operatorsArr[i].textContent, storedValue, displayText.textContent);
 function operate(operator, a, b)
 {
+    /*
+    if(lastEntrywasOp)
+    {
+        storedOperator = operator;
+        break;
+    }
+    */ //<--think about this more
+
     const display = document.getElementById("display");
     //alert(display.textContent);
 
@@ -236,15 +248,20 @@ function operate(operator, a, b)
             
             case "/":   display.textContent = divide(a,b);
                         break;
-                        
-            case "=":   //operate(undefined, )
-                        break;
         }
 
+        if(operator == "=")
+        {
+            clearDisplay = false;
+        }
+        else
+        {
+            clearDisplay = true;
+        }
         storedValue = display.textContent;
         storedOperator = operator;
-        clearDisplay = true;
     }
+    lastEntrywasOp = true;
 }
 
 function addKeyboardSupport()
@@ -254,7 +271,7 @@ function addKeyboardSupport()
 }
 
 function add(a, b)
-{return a + b;}
+{return Number(a) + Number(b);}
 
 function subtract(a, b)
 {return a - b;}
