@@ -171,7 +171,6 @@ function makeCalculator()
 
         numbersElementsArr[i].addEventListener("click", ( () => {
             const displayText = document.getElementById("display");
-            
             lastEntrywasOp = false;
 
             if(clearDisplay)
