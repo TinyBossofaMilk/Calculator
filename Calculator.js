@@ -256,8 +256,13 @@ function operate(operator, a, b)
             case "/":   display.textContent = divide(a,b);
                         break;
         }
+<<<<<<< Updated upstream
     
         clearDisplay = true;
+=======
+
+        clearDisplay = operator != "=";
+>>>>>>> Stashed changes
         storedValue = display.textContent;
         storedOperator = operator;
     }
