@@ -7,8 +7,6 @@
     1) checks if decmial point is true
     2) then adds to floating point part.
 
-
-
     TODO: Add Operation functionatliy
 int input adds integers
 checks for decimal functionality TO BE IMPLEMENTED LATER
@@ -56,12 +54,15 @@ let lastEntrywasOp = false;
 
 const buttonMarginPx = 10;
 const buttonPaddingPx = 50;
+const gapPx = 10;
 
 function makeCalculator()
 {
     body.style.display = "flex";
+    body.style.flex = "1";
     body.style.justifyContent = "center";
-    //body.style.alignItems = "space-around"
+    //body.style.alignItems = "space-around";
+
     
     
     const calculator = document.createElement("div");
@@ -93,7 +94,10 @@ function makeCalculator()
     /*********************************************************************** MISC BUTTONS */
 
     const miscFunctions = document.createElement("div");
-    miscFunctions.style.display = "flex-column";
+    miscFunctions.style.display = "flex";
+    miscFunctions.style.justifyContent = "space-between";
+    miscFunctions.style.gap = gapPx + "px";
+    
     inputbuttons.appendChild(miscFunctions);
 
     const miscbuttons = [];
@@ -102,8 +106,11 @@ function makeCalculator()
         miscbuttons[i] = document.createElement("button");
         miscbuttons[i].id = "misc";        
         miscbuttons[i].style.backgroundColor = "pink";
-        miscbuttons[i].style.margin = buttonMarginPx + "px";
-        miscbuttons[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
+        // miscbuttons[i].style.margin = buttonMarginPx + "px";
+        // miscbuttons[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
+        
+        miscbuttons[i].style.flex = "1 1 auto";
+
         miscFunctions.appendChild(miscbuttons[i]);
     }
 
@@ -120,6 +127,7 @@ function makeCalculator()
         const displayText = document.getElementById("display");
         storedValue = undefined;
         storedOperator = undefined;
+        lastEntrywasOp = false;
         displayText.textContent = 0;
     }));
     miscbuttons[1].addEventListener("click", ( () => {
@@ -143,15 +151,13 @@ function makeCalculator()
 
     /*********************************************************************** NUMBERS */
 
-    const numbersRow0 = document.createElement("div");
-    const numbersRow1 = document.createElement("div");
-    const numbersRow2 = document.createElement("div");
-    const numbersRow3 = document.createElement("div");
+    const numbersRowArr = [];
 
-    inputbuttons.appendChild(numbersRow3);
-    inputbuttons.appendChild(numbersRow2);
-    inputbuttons.appendChild(numbersRow1);
-    inputbuttons.appendChild(numbersRow0);
+    for(let i = 3; i >= 0; i--)
+    {
+        numbersRowArr[i] = document.createElement("div");
+        inputbuttons.appendChild(numbersRowArr[i]);
+    }
 
     const numbersElementsArr = [];
     for(let i = 0; i < 10; i++)
@@ -179,13 +185,13 @@ function makeCalculator()
     }
 
     for(let i = 7; i < 10 ; i++)
-    {numbersRow3.appendChild(numbersElementsArr[i]);}
+    {numbersRowArr[3].appendChild(numbersElementsArr[i]);}
     for(let i = 4; i < 7 ; i++)
-    {numbersRow2.appendChild(numbersElementsArr[i]);}
+    {numbersRowArr[2].appendChild(numbersElementsArr[i]);}
     for(let i = 1; i < 4 ; i++)
-    {numbersRow1.appendChild(numbersElementsArr[i]);}
-    numbersRow0.appendChild(numbersElementsArr[0]);
-    numbersRow0.appendChild(miscbuttons[4]);
+    {numbersRowArr[1].appendChild(numbersElementsArr[i]);}
+    numbersRowArr[0].appendChild(numbersElementsArr[0]);
+    numbersRowArr[0].appendChild(miscbuttons[4]);
 
 
     /*********************************************************************** OPERATORS */
@@ -218,6 +224,7 @@ function makeCalculator()
     operatorsArr[3].textContent = "+";
     operatorsArr[4].textContent = "=";
 }
+
 //operate(operatorsArr[i].textContent, storedValue, displayText.textContent);
 function operate(operator, a, b)
 {
@@ -337,5 +344,4 @@ EXTRA CREDIT: Make it look nice! This is a great project to practice your CSS sk
 EXTRA CREDIT: Add a “backspace” button, so the user can undo if they click the wrong number.
 
 EXTRA CREDIT: Add keyboard support!
-
 */
