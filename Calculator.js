@@ -47,10 +47,10 @@ TODO: remove all global variables.
 const body = document.querySelector("body");
 let storedValue = undefined;
 let storedOperator = undefined;
-let decimalPoint;
-let floatingPointInts = 0;
-let clearDisplay;
 let lastEntrywasOp = false;
+let clearDisplay = false;
+let floatingPointInts = 0;
+let decimalPoint;
 
 const buttonMarginPx = 10;
 const buttonPaddingPx = 50;
@@ -63,10 +63,10 @@ function makeCalculator()
     body.style.justifyContent = "center";
     //body.style.alignItems = "space-around";
 
-    
-    
     const calculator = document.createElement("div");
     calculator.style.display = "flex-column"; 
+    calculator.style.border = "solid black";
+ 
     //calculator.style.justifyContent = "center";
     //calculator.style.flexDirection = "column";
     body.appendChild(calculator);
@@ -95,6 +95,7 @@ function makeCalculator()
 
     const miscFunctions = document.createElement("div");
     miscFunctions.style.display = "flex";
+    miscFunctions.style.margin = buttonMarginPx + "px";
     miscFunctions.style.justifyContent = "space-between";
     miscFunctions.style.gap = gapPx + "px";
     
@@ -106,8 +107,8 @@ function makeCalculator()
         miscbuttons[i] = document.createElement("button");
         miscbuttons[i].id = "misc";        
         miscbuttons[i].style.backgroundColor = "pink";
-        // miscbuttons[i].style.margin = buttonMarginPx + "px";
-        // miscbuttons[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
+        miscbuttons[i].style.margin = buttonMarginPx + "px";
+        miscbuttons[i].style.padding = `${buttonPaddingPx/2}px ${buttonPaddingPx}px`;
         
         miscbuttons[i].style.flex = "1 1 auto";
 
@@ -152,10 +153,15 @@ function makeCalculator()
     /*********************************************************************** NUMBERS */
 
     const numbersRowArr = [];
-
     for(let i = 3; i >= 0; i--)
     {
         numbersRowArr[i] = document.createElement("div");
+        numbersRowArr[i].style.display = "flex";
+        numbersRowArr[i].style.margin = buttonMarginPx + "px";
+        numbersRowArr[i].style.justifyContent = "space-between";
+
+        
+        // numbersRowArr[i].style.gap = gapPx + "px";
         inputbuttons.appendChild(numbersRowArr[i]);
     }
 
@@ -178,7 +184,6 @@ function makeCalculator()
                 displayText.textContent = 0;
                 clearDisplay = false;
             }
-
             displayText.textContent = (displayText.textContent >= 0) ? displayText.textContent * 10 + i : displayText.textContent * 10 - i;
         }));
     }
@@ -198,6 +203,9 @@ function makeCalculator()
     const operatorsColumn = document.createElement("div");
     operatorsColumn.style.display = "flex";
     operatorsColumn.style.flexDirection = "column"
+    operatorsColumn.style.margin = buttonMarginPx + "px";
+    operatorsColumn.style.justifyContent = "space-between";
+    operatorsColumn.style.gap = gapPx + "px";
     buttons.appendChild(operatorsColumn);
 
     const operatorsArr = [];
@@ -256,13 +264,8 @@ function operate(operator, a, b)
             case "/":   display.textContent = divide(a,b);
                         break;
         }
-<<<<<<< Updated upstream
     
         clearDisplay = true;
-=======
-
-        clearDisplay = operator != "=";
->>>>>>> Stashed changes
         storedValue = display.textContent;
         storedOperator = operator;
     }
@@ -303,26 +306,6 @@ function divide(a, b)
 makeCalculator();
 
 /*
-Your calculator is going to contain functions for all of the basic math operators you typically find on simple calculators, 
-so start by creating functions for the following items and testing them in your browser’s console.
-
-add
-subtract
-multiply
-divide
-
-Create a new function operate that takes an operator and 2 numbers and then calls one of the above functions on the numbers.
-
-
-Create a basic HTML calculator with buttons for each digit, each of the above functions and an “Equals” key.
-
-AC +- % /
-7 8 9 *
-4 5 6 -
-1 2 3 +
-0 0 . =
-
-
 Do not worry about wiring up the JS just yet.
 There should also be a display for the calculator, go ahead and fill it with some dummy numbers so you can get it looking right.
 Add a “clear” button.
