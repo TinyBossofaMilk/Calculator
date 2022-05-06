@@ -7,9 +7,7 @@
     1) checks if decmial point is true
     2) then adds to floating point part.
 
-    
-
-TODO: Add Operation functionatliy
+    TODO: Add Operation functionatliy
 int input adds integers
 checks for decimal functionality TO BE IMPLEMENTED LATER
 checks for clear display
@@ -21,7 +19,7 @@ when operator is chosen, checks if there's stored op/value
     saves display text, will be erased upon new integer input
         save stored OP & Display in vars
         clear Display upon new int
-        
+
     if there is, executes stored value, stored operator, and current operator. FOR ALL EXCEPT = op
         dispaly text = calculated Operator value
         stored value = display text;
@@ -54,8 +52,6 @@ let clearDisplay = false;
 let floatingPointInts = 0;
 let decimalPoint;
 
-
-const decimalPrecision = 8;
 const buttonMarginPx = 10;
 const buttonPaddingPx = 50;
 const gapPx = 10;
@@ -150,7 +146,7 @@ function makeCalculator()
     }));
     miscbuttons[4].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-
+        //TODO: FINISH FXN displayText.textContent *= -1;
     }));
 
 
@@ -163,6 +159,7 @@ function makeCalculator()
         numbersRowArr[i].style.display = "flex";
         numbersRowArr[i].style.margin = buttonMarginPx + "px";
         numbersRowArr[i].style.justifyContent = "space-between";
+
         
         // numbersRowArr[i].style.gap = gapPx + "px";
         inputbuttons.appendChild(numbersRowArr[i]);
@@ -303,17 +300,10 @@ function divide(a, b)
 function numDecimalPlaces(number)
 {
     let i;
-    for(i = 0; number != number.toFixed(0); i++)
-    {
-        console.log(`${number} ${number.toFixed(0)}`);
-        number *= 10;
-    }
+    for(i = 0; number*Math.pow(10,i) != Math.round(number*Math.pow(10,i)); i++)
+    {}// console.log(`${number*Math.pow(10,i)} ${Math.round(number*Math.pow(10,i))}`);
     return i; 
 }
-
-
-
-
 
 makeCalculator();
 
@@ -334,9 +324,9 @@ Pressing = before entering all of the numbers or an operator could cause problem
 Pressing “clear” should wipe out any existing data.. make sure the user is really starting fresh after pressing “clear”
 Display a snarky error message if the user tries to divide by 0… don’t let it crash your calculator!
 
-EXTRA CREDIT: Users can get floating point numbers if they do the math required to get one, but they can’t type them in yet. 
+EXTRA CREDIT: Users can get floating point numbers if they do the Math required to get one, but they can’t type them in yet. 
 Add a . button and let users input decimals! Make sure you don’t let them type more than one though: 12.3.56.5. 
-It is hard to do math on these numbers. (disable the decimal button if there’s already one in the display)
+It is hard to do Math on these numbers. (disable the decimal button if there’s already one in the display)
 
 EXTRA CREDIT: Make it look nice! This is a great project to practice your CSS skills. At least make the operations a different color from the keypad buttons.
 
