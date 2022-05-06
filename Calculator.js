@@ -7,7 +7,9 @@
     1) checks if decmial point is true
     2) then adds to floating point part.
 
-    TODO: Add Operation functionatliy
+    
+
+TODO: Add Operation functionatliy
 int input adds integers
 checks for decimal functionality TO BE IMPLEMENTED LATER
 checks for clear display
@@ -19,7 +21,7 @@ when operator is chosen, checks if there's stored op/value
     saves display text, will be erased upon new integer input
         save stored OP & Display in vars
         clear Display upon new int
-
+        
     if there is, executes stored value, stored operator, and current operator. FOR ALL EXCEPT = op
         dispaly text = calculated Operator value
         stored value = display text;
@@ -52,6 +54,8 @@ let clearDisplay = false;
 let floatingPointInts = 0;
 let decimalPoint;
 
+
+const decimalPrecision = 8;
 const buttonMarginPx = 10;
 const buttonPaddingPx = 50;
 const gapPx = 10;
@@ -146,7 +150,7 @@ function makeCalculator()
     }));
     miscbuttons[4].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        //TODO: FINISH FXN displayText.textContent *= -1;
+
     }));
 
 
@@ -159,7 +163,6 @@ function makeCalculator()
         numbersRowArr[i].style.display = "flex";
         numbersRowArr[i].style.margin = buttonMarginPx + "px";
         numbersRowArr[i].style.justifyContent = "space-between";
-
         
         // numbersRowArr[i].style.gap = gapPx + "px";
         inputbuttons.appendChild(numbersRowArr[i]);
@@ -297,7 +300,16 @@ function divide(a, b)
         return Infinity;
 }
 
-
+function numDecimalPlaces(number)
+{
+    let i;
+    for(i = 0; number != number.toFixed(0); i++)
+    {
+        console.log(`${number} ${number.toFixed(0)}`);
+        number *= 10;
+    }
+    return i; 
+}
 
 
 
