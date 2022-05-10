@@ -1,11 +1,17 @@
 /* TODO: INtegration of decimal point logics
- //ce clears it, backspace clears it,, true when someone clicks the . operator.
+ //ce clears it, backspace clears it, true when someone clicks the . operator.
  //then you add floating point part. 
 
  limit how many decimal points you can add.
  //when integer inputted, 
-    1) checks if decmial point is true
+    1) checks if there is decimal point using isFloatingNumber()
     2) then adds to floating point part.
+        added string integer = int * 10^(-floating points + 1)
+        display += int * pow(10, numDecimalPlaces);
+
+
+
+
 
     TODO: Add Operation functionatliy
 int input adds integers
@@ -49,8 +55,8 @@ let storedValue = undefined;
 let storedOperator = undefined;
 let lastEntrywasOp = false;
 let clearDisplay = false;
-let floatingPointInts = 0;
-let decimalPoint;
+// let floatingPointInts = 0;
+// let decimalPoint;
 
 const buttonMarginPx = 10;
 const buttonPaddingPx = 50;
@@ -299,11 +305,22 @@ function divide(a, b)
 
 function numDecimalPlaces(number)
 {
-    let i;
-    for(i = 0; number*Math.pow(10,i) != Math.round(number*Math.pow(10,i)); i++)
-    {}// console.log(`${number*Math.pow(10,i)} ${Math.round(number*Math.pow(10,i))}`);
-    return i; 
+    // let i;
+    // let size = number.length;
+    
+    // for(i = 0; number.charAt(size - i - 1) != "." && i < size; i++)
+    // {}
+    number = number.toString();
+    let i = number.lastIndexOf(".");
+    return (i == -1) ? 0 : number.length - i - 1;
+    
+    // return i < size ? i : 0;
 }
+// for(i = 0; number*Math.pow(10,i) != Math.round(number*Math.pow(10,i)); i++)
+// {}// console.log(`${number*Math.pow(10,i)} ${Math.round(number*Math.pow(10,i))}`);
+
+function isFloatingPoint(number)
+    {return number.indexOf(".") != -1;}
 
 makeCalculator();
 
