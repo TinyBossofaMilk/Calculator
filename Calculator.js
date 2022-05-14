@@ -5,18 +5,18 @@
  limit how many decimal points you can add
 
 FORGET EVERYTHING, CHANGE INTEGER ADDITION FROM DISPLAY*10 + INT to just adding it on the string
-            decimal point bool
-                checked after every operation, turned on if there are decimal places.
-                turned on when . op is pressed
-                turned off when operator happens
-                when clear happens
-                when backspace happens 
+    decimal point bool
+        checked after every operation, turned on if there are decimal places.
+        turned on when . op is pressed
+        turned off when operator happens
+        when clear happens
+        when backspace happens 
 
 
-                for all number input functions EXCEPT 0
-                1) checks if decmial point is true
-                2) then adds to floating point part.
-                    adds by finding decimal place, then taking that integer * pow(10, [decimalplace])
+        for all number input functions EXCEPT 0
+        1) checks if decmial point is true
+        2) then adds to floating point part.
+            adds by finding decimal place, then taking that integer * pow(10, [decimalplace])
 instead, just check if there is a decimal before adding dec point
 
 TODO: remove all global variables.
@@ -162,7 +162,13 @@ function makeCalculator()
                 displayText.textContent = 0;
                 clearDisplay = false;
             }
-            displayText.textContent = (displayText.textContent >= 0) ? displayText.textContent * 10 + i : displayText.textContent * 10 - i;
+
+            if(display.textContent == 0)
+            {
+                displayText.textContent = i; 
+            }
+            else
+                displayText.textContent += i;
         }));
     }
 
