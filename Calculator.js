@@ -1,51 +1,23 @@
 /* TODO: INtegration of decimal point logics
- //ce clears it, backspace clears it, true when someone clicks the . operator.
+ //ce clears it, backspace clears it,, true when someone clicks the . operator.
  //then you add floating point part. 
 
- limit how many decimal points you can add.
- //when integer inputted, 
-    1) checks if there is decimal point using isFloatingNumber()
-    2) then adds to floating point part.
-        added string integer = int * 10^(-floating points + 1)
-        display += int * pow(10, numDecimalPlaces);
+ limit how many decimal points you can add
+
+FORGET EVERYTHING, CHANGE INTEGER ADDITION FROM DISPLAY*10 + INT to just adding it on the string
+            decimal point bool
+                checked after every operation, turned on if there are decimal places.
+                turned on when . op is pressed
+                turned off when operator happens
+                when clear happens
+                when backspace happens 
 
 
-
-
-
-    TODO: Add Operation functionatliy
-int input adds integers
-checks for decimal functionality TO BE IMPLEMENTED LATER
-checks for clear display
-    if so, sets display value = 0 and proceeds
-    cleardisplay = false
-
-when operator is chosen, checks if there's stored op/value
-    if there isn't, saves stored op/value, sets display to 0
-    saves display text, will be erased upon new integer input
-        save stored OP & Display in vars
-        clear Display upon new int
-
-    if there is, executes stored value, stored operator, and current operator. FOR ALL EXCEPT = op
-        dispaly text = calculated Operator value
-        stored value = display text;
-        stored OP = new inputed OP
-
-    if op is =, carry out saved values and operator
-    if seq. input is op, carry out using display.
-    if seq. input is int, clear everything.
-
-    sequential op input
-    should not execute calculation using current display value. 
-
-TODO: add exception where if you put in multiple operators, it takes the
-most recent one, and does perform a calculation the display value based on.
-    after operation: lastEntrywasOP, 
-        if op is added, don't run calculation.
-        if op is false, run calculation, last op = true
-
-    when integer is entered, lastEntrywasOp = false;
-
+                for all number input functions EXCEPT 0
+                1) checks if decmial point is true
+                2) then adds to floating point part.
+                    adds by finding decimal place, then taking that integer * pow(10, [decimalplace])
+instead, just check if there is a decimal before adding dec point
 
 TODO: remove all global variables.
 */
@@ -55,8 +27,8 @@ let storedValue = undefined;
 let storedOperator = undefined;
 let lastEntrywasOp = false;
 let clearDisplay = false;
-// let floatingPointInts = 0;
-// let decimalPoint;
+let floatingPointInts = 0;
+let decimalPoint;
 
 const buttonMarginPx = 10;
 const buttonPaddingPx = 50;
@@ -305,22 +277,16 @@ function divide(a, b)
 
 function numDecimalPlaces(number)
 {
-    // let i;
-    // let size = number.length;
-    
-    // for(i = 0; number.charAt(size - i - 1) != "." && i < size; i++)
-    // {}
-    number = number.toString();
-    let i = number.lastIndexOf(".");
-    return (i == -1) ? 0 : number.length - i - 1;
-    
-    // return i < size ? i : 0;
+    let i;
+    for(i = 0; number*Math.pow(10,i) != Math.round(number*Math.pow(10,i)); i++)
+    {}// console.log(`${number*Math.pow(10,i)} ${Math.round(number*Math.pow(10,i))}`);
+    return i; 
 }
-// for(i = 0; number*Math.pow(10,i) != Math.round(number*Math.pow(10,i)); i++)
-// {}// console.log(`${number*Math.pow(10,i)} ${Math.round(number*Math.pow(10,i))}`);
 
-function isFloatingPoint(number)
-    {return number.indexOf(".") != -1;}
+function isDecimal(number)
+{
+
+}
 
 makeCalculator();
 
