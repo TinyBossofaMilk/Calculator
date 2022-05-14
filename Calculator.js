@@ -119,12 +119,15 @@ function makeCalculator()
     }));
     miscbuttons[3].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        let lastDigit = displayText.textContent % 10;
-        displayText.textContent = (displayText.textContent - lastDigit) / 10;
+        displayText.textContent = (displayText.textContent.length == 1) ? 0 : displayText.textContent.substring(0, displayText.textContent.length-1);
+
+        // if(displayText.textContent == "")
+            
     }));
     miscbuttons[4].addEventListener("click", ( () => {
         const displayText = document.getElementById("display");
-        //TODO: FINISH FXN displayText.textContent *= -1;
+        if(!isDecimal(display.textContent))
+            {displayText.textContent += ".";}
     }));
 
 
@@ -291,7 +294,7 @@ function numDecimalPlaces(number)
 
 function isDecimal(number)
 {
-
+    return number.indexOf(".") != -1;
 }
 
 makeCalculator();
